@@ -26,6 +26,7 @@ class SlackMessage extends Component {
     this.generateHeaders().then((headers) => {
       fetch('/.netlify/functions/slack', {
         method: "POST",
+        headers,
         body: JSON.stringify({
           text: this.state.text
         })

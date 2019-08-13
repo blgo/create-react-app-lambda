@@ -1,14 +1,14 @@
-const claims = context.clientContext && context.clientContext.user;
-if (!claims) {
-  return callback(null, { statusCode: 401, body: "You must be signed in to call this function" });
-}
-
 const { SLACK_WEBHOOK_URL } = process.env;
 import fetch from "node-fetch"
 export function handler(event, context, callback) {
   if (event.httpMethod !== "POST") {
     return callback(null, { statusCode: 410, body: "Unsupported Request Method" });
   }
+  const claims = context.clientContext && context.clientContext.user;
+  if (!claims) {
+    return callback(null, { statusCode: 401, body: "You must be signed in to call this function" });
+  }
+
 
   try {
     const payload = JSON.parse(event.body);
